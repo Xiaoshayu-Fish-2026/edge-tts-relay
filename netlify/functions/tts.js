@@ -1,4 +1,4 @@
-﻿// Netlify Function：HTTP 进去，mp3 出来。
+// Netlify Function：HTTP 进去，mp3 出来。
 // 内部用 WebSocket 连微软 Edge TTS，把音频收集齐后 base64 返回。
 // 调用：/.netlify/functions/tts?text=你好&voice=zh-CN-XiaoyiNeural
 const crypto = require('node:crypto');
@@ -46,7 +46,7 @@ function synth(text, voice, rate, pitch) {
       const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='zh-CN'>`
         + `<voice name='${voice}'><prosody pitch='${pitch}' rate='${rate}' volume='+0%'>${escapeXml(text)}</prosody></voice></speak>`;
       ws.send(`X-RequestId:${crypto.randomUUID().replace(/-/g, '')}\r\nContent-Type:application/ssml+xml\r\n`
-        + `X-Timestamp:${ts}Z\r\nPath:ssml\r\n\r\n${ssml}`);
+        + `X-Timestamp:${ts}\r\nPath:ssml\r\n\r\n${ssml}`);
     });
     ws.on('message', (data, isBinary) => {
       if (isBinary) chunks.push(Buffer.from(data).subarray(2));
