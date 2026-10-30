@@ -1,4 +1,4 @@
-// Netlify Function：HTTP 进去，mp3 出来。
+﻿// Netlify Function：HTTP 进去，mp3 出来。
 // 内部用 WebSocket 连微软 Edge TTS，把音频收集齐后 base64 返回。
 // 调用：/.netlify/functions/tts?text=你好&voice=zh-CN-XiaoyiNeural
 const crypto = require('node:crypto');
@@ -83,3 +83,4 @@ exports.handler = async (event) => {
     return { statusCode: 502, body: JSON.stringify({ error: String(err && err.message || err) }) };
   }
 };
+
